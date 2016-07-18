@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 
   
 
+  get '/login', to: 'sessions#new',as: 'login'
+  post '/login', to: 'sessions#create', as: 'login_create'
+  delete '/logout',  to: 'sessions#destroy', as: 'logout'
   root 'static_pages#home'
   get '/help', to: 'static_pages#help',as: 'help'
   get '/home', to: 'static_pages#home',as: 'home'
