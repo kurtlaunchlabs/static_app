@@ -6,15 +6,15 @@ test "should get new" do
     assert_response :success
   end
 
-  test "should get create" do
-	post login_create_path
-	assert_response :success
+ #  test "should get create" do
+	# post login_create_path
+	# assert_response :success
 
-   end
+ #   end
 
-   test "should get destroy" do
-	 get root_path
-	assert_response :success
+ #   test "should get destroy" do
+	#  get root_path
+	# assert_response :success
 	
-   end
+ #   end
 end
