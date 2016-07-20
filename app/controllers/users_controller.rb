@@ -10,7 +10,8 @@ class UsersController < ApplicationController
   end
 
  def show
-    @user = User.find(params[:id])
+  logged_in_user
+  @user = User.find(params[:id])
 
    # debugger
   end
