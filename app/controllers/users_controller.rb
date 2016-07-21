@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   
- before_action :logged_in_user, only: [:index,:edit, :update]
+ before_action :logged_in_user, only: [:index,:edit, :update, :show]
  before_action :correct_user,   only: [:edit, :update]
  before_action :admin_user,     only: :destroy
 
@@ -10,8 +10,9 @@ class UsersController < ApplicationController
   end
 
  def show
-  logged_in_user
+  #logged_in_user
   @user = User.find(params[:id])
+   redirect_to root_url and return unless true
 
    # debugger
   end
@@ -35,12 +36,16 @@ class UsersController < ApplicationController
   	@user = User.new(user_params) 
     		# Not the final implementation!
   	if @user.save
-        signuser = @user 
-  			 flash[:success] = "Welcome to the Sample App!"
-         sign_in @user
-         sign_in_remember @user
-  		     # Handle a successful save.
-  		     redirect_to @user
+      #   signuser = @user 
+  			 # flash[:success] = "Welcome to the Sample App!"
+      #    sign_in @user
+      #    sign_in_remember @user
+  		  #    # Handle a successful save.
+  		  #    redirect_to @user
+        # UserMailer.account_activation(@user).deliver_now
+        @user.send_activation_email
+        flash[:info] = "Please check your email to activate your account."
+        redirect_to root_url
 
   	else
   		render 'new'
