@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
   
 
+  get 'password_resets/new'
+
+  get 'password_resets/edit'
+
   get '/login', to: 'sessions#new',as: 'login'
   post '/login', to: 'sessions#create', as: 'login_create'
   delete '/logout',  to: 'sessions#destroy', as: 'logout'
@@ -16,6 +20,7 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
   resources :users
   resources :account_activations, only: [:edit,:update]
+  resources :password_resets,     only: [:new, :create, :edit, :update]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 end

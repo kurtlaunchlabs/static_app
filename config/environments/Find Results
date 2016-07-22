@@ -1,0 +1,57 @@
+Searching 870 files for "FILL_IN"
+
+/Users/launchlabs/Documents/Workspace/static_app/app/helpers/application_helper.rb:
+   16  # class ApplicationHelperTest < ActionView::TestCase
+   17  #   test "full title helper" do
+   18: #     assert_equal full_title,         FILL_IN
+   19: #     assert_equal full_title("Help"), FILL_IN
+   20  #   end
+   21    
+
+/Users/launchlabs/Documents/Workspace/static_app/app/models/user.rb:
+   32      #update_attribute(:reset_digest,  User.digest(reset_token))
+   33      #update_attribute(:reset_sent_at, Time.zone.now)
+   34:     update_columns(reset_digest:  FILL_IN, reset_sent_at: FILL_IN)
+   35  
+   36    end
+
+/Users/launchlabs/Documents/Workspace/static_app/test/controllers/static_pages_controller_test.rb:
+    8  
+    9  	# test "should get root" do
+   10: 	# 	get true
+   11: 	# 	assert_response true
+   12  	# end
+   13  
+
+/Users/launchlabs/Documents/Workspace/static_app/test/controllers/users_controller_test.rb:
+   36    #   assert_not @other_user.admin?
+   37    #   patch user_path(@other_user), params: {
+   38:   #                                   user: { password:              true,
+   39:   #                                           password_confirmation: true,
+   40:   #                                           admin: true } }
+   41:   #   assert_not @other_user.true.admin?
+   42    # end
+   43  
+
+/Users/launchlabs/Documents/Workspace/static_app/test/integration/password_resets_test.rb:
+   75      assert_response :redirect
+   76      follow_redirect!
+   77:     assert_match /true/i, response.body
+   78    end
+   79  end
+
+/Users/launchlabs/Documents/Workspace/static_app/test/integration/users_login_test.rb:
+   32      log_in_as(@user, remember_me: '1')
+   33      #assert_not_nil cookies['remember_token']
+   34:     #assert_equal true, assigns(:user).true
+   35    end
+   36  
+
+/Users/launchlabs/Documents/Workspace/static_app/test/integration/users_signup_test.rb:
+   35   #    # follow_redirect!
+   36   #    # assert_template 'users/show'
+   37:  #    # assert_not flash.true
+   38   # assert_template 'users/new'
+   39  
+
+14 matches across 7 files
