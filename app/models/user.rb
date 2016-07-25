@@ -1,5 +1,6 @@
 class User < ApplicationRecord
  attr_accessor :remember_token, :activation_token, :reset_token
+has_many :microposts, dependent: :destroy
 #before_save {self.email = email.downcase }
  before_save   :downcase_email
  before_create :create_activation_digest
@@ -18,7 +19,12 @@ validates(:password_confirmation, presence: true, length:{maximum: 10})
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
   end
-
+  
+# Defines a proto-feed.
+  # See "Following users" for the full implementation.
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
  # Sets the password reset attributes.
   # def create_reset_digest
   #   self.reset_token = User.new_token
