@@ -1,6 +1,9 @@
 class User < ApplicationRecord
  attr_accessor :remember_token, :activation_token, :reset_token
 has_many :microposts, dependent: :destroy
+has_many :active_relationships, class_name:  "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent:   :destroy
 #before_save {self.email = email.downcase }
  before_save   :downcase_email
  before_create :create_activation_digest
@@ -10,6 +13,12 @@ validates(:email,presence: true,length:{maximum: 255}, format: {with: VALID_EMAI
 has_secure_password
 validates(:password,presence: true,length:{maximum: 10})
 validates(:password_confirmation, presence: true, length:{maximum: 10})
+
+has_many :following, through: :active_relationships, source: :followed
+has_many :followers, through: :passive_relationships, source: :follower
+has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent:   :destroy
 
  # Sends password reset email.
   def send_password_reset_email
@@ -40,7 +49,20 @@ validates(:password_confirmation, presence: true, length:{maximum: 10})
     update_columns(reset_digest:  true, reset_sent_at: true)
 
   end
+# Follows a user.
+  def follow(other_user)
+    active_relationships.create(followed_id: other_user.id)
+  end
 
+  # Unfollows a user.
+  def unfollow(other_user)
+    active_relationships.find_by(followed_id: other_user.id).destroy
+  end
+
+  # Returns true if the current user is following the other user.
+  def following?(other_user)
+    following.include?(other_user)
+  end
 
 # Returns the hash digest of the given string.
   def User.digest(string)

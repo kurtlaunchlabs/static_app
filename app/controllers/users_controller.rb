@@ -4,9 +4,13 @@ class UsersController < ApplicationController
  before_action :correct_user,   only: [:edit, :update]
  before_action :admin_user,     only: :destroy
 
+  def setup
+    @user = users(:michael)
+    @other_user = users(:archer)
+  end
 
   def index
- @users = User.paginate(page: params[:page], :per_page => 3)
+ @users = User.paginate(page: params[:page], :per_page => 20)
   end
 
  def show
@@ -69,6 +73,23 @@ class UsersController < ApplicationController
   private 
   def user_params
   	params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  
+  
+
+  def following
+    @title = "Following"
+    @user  = User.find(params[:id])
+    @users = @user.following.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user  = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
   end
  # Before filters
 
